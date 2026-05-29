@@ -1,1 +1,1 @@
-web: gunicorn ecomapi.wsgi --log-file -
+web: bash start.sh
