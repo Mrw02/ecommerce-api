@@ -57,21 +57,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecomapi.wsgi.application'
 
-# Railway fournit DATABASE_URL automatiquement, sinon on utilise les variables individuelles
-DATABASE_URL = config('DATABASE_URL', default=None)
-if DATABASE_URL:
-    DATABASES = {'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)}
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('DB_NAME'),
-            'USER': config('DB_USER'),
-            'PASSWORD': config('DB_PASSWORD'),
-            'HOST': config('DB_HOST'),
-            'PORT': config('DB_PORT', default='5432'),
-        }
-    }
+DATABASE_URL = config('DATABASE_URL', default='sqlite:///db.sqlite3')
+DATABASES = {'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)}
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
