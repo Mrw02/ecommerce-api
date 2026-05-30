@@ -39,15 +39,12 @@ class CartItemAddView(APIView):
         return Response(CartItemSerializer(item).data, status=status.HTTP_201_CREATED)
 
 
-class CartItemUpdateView(generics.UpdateDestroyAPIView):
+class CartItemUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartItemSerializer
 
     def get_queryset(self):
         cart, _ = Cart.objects.get_or_create(user=self.request.user)
         return CartItem.objects.filter(cart=cart)
-
-    def perform_destroy(self, instance):
-        instance.delete()
 
 
 class CheckoutView(APIView):
